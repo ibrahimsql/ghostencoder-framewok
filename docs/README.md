@@ -1,7 +1,11 @@
 # GhostsEncoder - Advanced Malware Encryption Tool
 
-![GhostsEncoder Banner](
-https://github.com/user-attachments/assets/c0faa1a5-c815-437e-) 
+![GhostsEncoder Banner](https://github.com/user-attachments/assets/fefc3cb7-1f44-4193-8d70-1ba89823ec62)
+
+
+
+
+
 
 ## 🔒 Features
 
