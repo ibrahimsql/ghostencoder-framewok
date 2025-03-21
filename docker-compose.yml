@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+  encryption-tool:
+    build: .
+    image: ghostsencoder-ibrahimsql
+    container_name: ghostsencoder-ibrahimsql
+    volumes:
+      - ./data:/data
+    environment:
+      - ENCRYPTION_KEY=${ENCRYPTION_KEY:-default_key_replace_me}
+    # Default command can be overridden at runtime
+    command: encrypt aes-cbc -p "${ENCRYPTION_KEY:-default_key_replace_me}" -i "/data/input_file" -o "/data/output_file.encrypted"
+
+  # Separate service for obfuscation
+  obfuscation-tool:
+    build: .
+    image: ghostsencoder-ibrahimsql
+    container_name: ghostsencoder-ibrahimsql-obfuscator
+    volumes:
+      - ./data:/data
+    environment:
+      - ENCRYPTION_KEY=${ENCRYPTION_KEY:-default_key_replace_me}
+    command: obfuscate full -p "${ENCRYPTION_KEY:-default_key_replace_me}" -i "/data/input_file" -o "/data/output_file.obfuscated"
+
+volumes:
+  data:
+    driver: local
+
+# Usage:
+# 1. Create a .env file with ENCRYPTION_KEY=your_secure_password
+# 2. Create a data directory and place files to encrypt there
+# 3. Run: docker-compose up encryption-tool
+#    OR
+#    Run: docker-compose up obfuscation-tool
+
+# Created by ibrahimsql 
